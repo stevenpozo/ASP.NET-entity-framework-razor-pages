@@ -1,0 +1,43 @@
+﻿@using MVCRazor.Models.ViewModel
+@model List<ListPeople>
+@{
+    Layout = null;
+}
+
+<style>
+    /* Estilos para el contenedor principal */
+    .person-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Estilos para los botones de editar y eliminar */
+    .edit-button, .delete-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .delete-button {
+        background-color: #f44336;
+    }
+</style>
+
+@foreach (var oPeople in Model)
+{
+    <div class="person-container">
+        Nombre: @oPeople.Name<br />
+        Edad: @oPeople.Age
+        <input class="edit-button" onclick="document.location.href='@Url.Content("~/People/Edit/?Id="+oPeople.Id)'" type="button" value="Editar">
+        <input class="delete-button" onclick="jsDelete(@oPeople.Id)" type="button" value="Eliminar">
+    </div>
+}

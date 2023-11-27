@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CrudMVCRazorModelStoreContainer" CdmEntityContainer="CrudMVCRazorEntities">
+    <EntitySetMapping Name="people">
+      <EntityTypeMapping TypeName="CrudMVCRazorModel.people">
+        <MappingFragment StoreEntitySet="people">
+          <ScalarProperty Name="id_people" ColumnName="id_people" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

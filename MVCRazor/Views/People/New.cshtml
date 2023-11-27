@@ -1,0 +1,108 @@
+﻿@model MVCRazor.Models.ViewModel.PeopleViewModel
+@{
+    ViewBag.Title = "Agregar nuevo Cliente";
+}
+
+<style>
+    /* Estilos para el formulario */
+    form {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 20px;
+        width: 300px;
+    }
+
+    /* Estilos para las etiquetas y cajas de texto */
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Estilos para el botón */
+    input[type="button"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+</style>
+
+<h2>Add new client</h2>
+
+<form>
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(d => d.Name)
+            @Html.TextBoxFor(d => d.Name, new { id = "Name" })
+            @Html.ValidationMessageFor(d => d.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(d => d.Age)
+            @Html.TextBoxFor(d => d.Age, new { id = "Age" })
+            @Html.ValidationMessageFor(d => d.Age)
+        </div>
+
+        <input type="button" value="Guardar" onclick="jsAdd()" />
+    </div>
+</form>
+
+<script>
+    var url = "@Url.Content("~/People/Save")";
+    function jsAdd() {
+        var name = document.getElementById("Name").value;
+        var age = document.getElementById("Age").value;
+
+        // Validar entrada del usuario
+        if (!name.match(/^[a-zA-Z ]+$/)) {
+            alert("Por favor, ingrese un nombre válido (solo letras y espacios).");
+            return;
+        }
+
+        if (!age.match(/^[0-9]+$/)) {
+            alert("Por favor, ingrese una edad válida (solo números enteros).");
+            return;
+        }
+
+        // Si la validación es exitosa, continuar con la lógica de guardado.
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                Name: name,
+                Age: age
+            }),
+            headers: {
+                'Accept': "application/json",
+                "Content-Type": "application/json"
+            }
+        }).then(function (response) {
+            if (response.ok) {
+                return response.text()
+            } else {
+                alert("Error al ejecutar :(")
+            }
+        }).then(function (Data) {
+            if (Data != "1") {
+                alert(Data)
+            } else {
+                document.location.href = "@Url.Content("~/People/")";
+            }
+        })
+    }
+</script>
